@@ -152,6 +152,14 @@ def scrape_joburg_market(today):
     if not table:
         raise ValueError("Joburg Market: price table not found on page.")
 
+    # ── DEBUG: print every row so we can see the real structure ──
+    print("DEBUG Joburg table rows:")
+    for i, row in enumerate(table.find_all("tr")):
+        cells = [td.get_text(strip=True) for td in row.find_all("td")]
+        if cells:
+            print(f"  row {i}: {cells}")
+    # ── END DEBUG ──
+
     for row in table.find_all("tr"):
         cells = [td.get_text(strip=True) for td in row.find_all("td")]
         if len(cells) < 3:
